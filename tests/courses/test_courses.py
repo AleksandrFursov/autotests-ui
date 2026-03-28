@@ -28,3 +28,17 @@ class TestCourses:
         create_course_page.create_course_form.fill("Playwright", "2 weeks", "Playwright", "100", "10")
         create_course_page.create_course_toolbar_view.click_create_course_button()
         courses_list_page.course_view.check_visible(0, "Playwright", "100", "10", "2 weeks")
+
+    def test_edit_course(self, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
+        create_course_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        create_course_page.create_course_form.fill("Playwright", "2 weeks", "Playwright", "100", "10")
+        create_course_page.image_upload_widget.upload_preview_image('./testdata/files/image.png')
+        create_course_page.create_course_toolbar_view.click_create_course_button()
+
+        courses_list_page.course_view.check_visible(0, "Playwright", "100", "10", "2 weeks")
+        courses_list_page.course_view_menu.click_edit(0)
+
+        create_course_page.create_course_form.fill("Playwright 2.0", "3 weeks", "Playwright 2.0", "200", "20")
+        create_course_page.create_course_toolbar_view.click_create_course_button()
+
+        courses_list_page.course_view.check_visible(0, "Playwright 2.0", "200", "20", "3 weeks")
