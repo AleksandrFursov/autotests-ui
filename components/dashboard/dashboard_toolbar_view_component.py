@@ -12,3 +12,4 @@ class DashboardToolbarViewComponent(BaseComponent):
 
     def check_visible(self):
         self.dashboard_title.check_visible()
+        self.dashboard_title.check_have_text('Dashboard')
