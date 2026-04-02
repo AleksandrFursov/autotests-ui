@@ -2,9 +2,9 @@ import pytest
 from _pytest.fixtures import SubRequest
 from playwright.sync_api import Playwright, Page
 
+from config import settings
 from pages.authentification.registration_page import RegistrationPage
 from tools.playwright.pages import initialize_playwright_page
-from config import settings
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def chromium_page(request: SubRequest, playwright: Playwright) -> Page:
 @pytest.fixture(scope="session")
 def initialize_browser_state(playwright: Playwright):
     browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
+    context = browser.new_context(base_url=settings.get_base_url())
     page = context.new_page()
 
     registration_page = RegistrationPage(page=page)
